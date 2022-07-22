@@ -11,6 +11,8 @@ import Navbar from './components/Navbar'
 import NoteEditor from './components/NoteEditor'
 import LoginPage from './components/LoginPage'
 
+console.log(process.env.REACT_APP_SERVER_URL)
+
 function App() {
   const location = useLocation()
 
