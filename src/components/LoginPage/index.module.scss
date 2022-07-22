@@ -1,0 +1,30 @@
+.loginCard {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #EEEEEE;
+
+    form {
+        background: #FFFFFF;
+        padding: 30px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+
+        input {
+            width: 250px;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        h3 {
+            text-align: center;
+        }
+    }
+}

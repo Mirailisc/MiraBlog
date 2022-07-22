@@ -1,25 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider } from '@apollo/client';
+import client from './services/apollo'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import './App.scss';
+import { initializeIcons } from '@fluentui/font-icons-mdl2';
+
+// Components
+import Dashboard from './components/Dashboard'
+import Navbar from './components/Navbar'
+import NoteEditor from './components/NoteEditor'
+import LoginPage from './components/LoginPage'
+
+console.log(process.env)
 
 function App() {
+  const location = useLocation()
+
+  const renderNavbar = () => {
+    if(location.pathname === '/sign-in') return null
+    else return <Navbar/>
+  }
+  initializeIcons();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      {renderNavbar()}
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Dashboard /> }/>
+          <Route path="/editor" element={<NoteEditor /> }/>
+          <Route path="/sign-in" element={<LoginPage /> }/>
+        </Routes>
+      </div>
+    </ApolloProvider>
   );
 }
 

@@ -1,0 +1,66 @@
+.articleHeader {
+    margin: 20px;
+    margin-top: 5rem;
+    
+    .headerInput {
+        width: 46%;
+        padding: 20px;
+        height: 50px;
+        border: none;
+        outline: none;
+        background-color: #EEEEEE;
+        font-size: 25px;
+        
+    }
+}
+
+.markdownContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .markdown {
+        width: 50%;
+        height: 80vh;
+
+        h3 {
+            margin-left: 20px;
+        }
+
+        .markdownInput {
+            margin: 20px;
+            padding: 10px;
+            width: 90%;
+            height: 90%;
+            resize: none;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: #EEEEEE;
+        }
+    }
+
+    .preview {
+        @extend .markdown;
+
+        .markdownPreview {
+            font-size: 16px;
+            width: 90%;
+            height: 90%;
+            margin: 20px;
+            padding: 10px;
+            outline: none;
+            white-space: pre-line;
+            overflow-y: auto;
+        }
+    }
+}
+
+.saveBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    margin: 0 20px;
+}
