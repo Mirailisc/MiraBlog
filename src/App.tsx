@@ -11,8 +11,6 @@ import Navbar from './components/Navbar'
 import NoteEditor from './components/NoteEditor'
 import LoginPage from './components/LoginPage'
 
-console.log(process.env)
-
 function App() {
   const location = useLocation()
 

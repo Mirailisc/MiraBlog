@@ -9,9 +9,7 @@ import { AuthContext } from '../../context/authContext'
 const Articles = () => {
   const [articles, setArticles] = useState<any>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const { loading, error, data } = useQuery(GET_ARTICLES, {
-    pollInterval: 500,
-  })
+  const { loading, error, data } = useQuery(GET_ARTICLES)
 
   const { user }: any = useContext(AuthContext)
 
