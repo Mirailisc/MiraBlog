@@ -10,6 +10,7 @@ yarn install
 ```
 
 ### Environment
+Create `.env` file with
 ```
 REACT_APP_SERVER_URL=<your_server_endpoint>
 ```
