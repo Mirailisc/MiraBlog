@@ -22,7 +22,7 @@ function App() {
     if (!user) {
       navigate("/sign-in")
     }
-  }, [user])
+  }, [])
 
   const renderNavbar = () => {
     if(location.pathname === '/sign-in') return null
