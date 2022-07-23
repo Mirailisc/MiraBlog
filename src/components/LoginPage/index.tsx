@@ -9,7 +9,7 @@ import { LOGIN_USER } from '../../services/graphql'
 import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
-  const [error, setErrors] = useState<any>([])
+  const [errorMessage, setError] = useState<any>()
   const navigate = useNavigate()
   const context = useContext(AuthContext)
 
@@ -19,8 +19,12 @@ const LoginPage = () => {
       navigate('/')
     },
     onError({ graphQLErrors }) {
-      setErrors(graphQLErrors)
+      setError(graphQLErrors)
     },
+  })
+
+  const renderError = errorMessage?.map((items: any, index: number) => {
+    return <Alert intent="error" key={index++} >{items.message}</Alert>
   })
 
   return (
@@ -44,9 +48,10 @@ const LoginPage = () => {
             login({ variables: { email: values.email, password: values.password } })
           }}
         >
-          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <h3>Sign in</h3>
+              {renderError}
               <label>Email address</label>
               {errors.email ? <Alert intent="error">{errors.email && touched.email && errors.email}</Alert> : null}
               <Input type="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
@@ -61,7 +66,7 @@ const LoginPage = () => {
                 onBlur={handleBlur}
                 value={values.password}
               />
-              <Button appearance="primary" type="submit" disabled={isSubmitting}>
+              <Button appearance="primary" type="submit">
                 Sign in
               </Button>
             </form>

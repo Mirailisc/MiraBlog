@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styles from './index.module.scss'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -6,21 +6,41 @@ import { Button } from '@fluentui/react-components'
 import { Link } from 'react-router-dom'
 import { CREATE_ARTICLE } from '../../services/graphql'
 import { useMutation } from '@apollo/client'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/authContext'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 
 const NoteEditor = () => {
   const [markdownText, setMarkdownText] = useState<any | null>(null)
   const [header, setHeader] = useState<string | null>(null)
 
+  const navigate = useNavigate()
+  const { user }: any = useContext(AuthContext)
+
   const source: string = markdownText?.replace('/\n/gi', '\n &nbsp;')
 
-  if (markdownText === '') {
-    setMarkdownText(null)
-  }
-  if (markdownText === '') {
-    setHeader(null)
-  }
-
   const [createArticle] = useMutation(CREATE_ARTICLE)
+
+  // Render Image
+  // const RenderImage = (props: any) => {
+  //   return <img style={{ width: "50%" }} src={props.src} alt={props.alt}></img>
+  // }
+
+  const RenderCodeBlock = ({ node, inline, className, children, ...props }: any) => {
+    const match: any = /language-(\w+)/.exec(className || '')
+    return !inline && match ? (
+      <SyntaxHighlighter
+        children={String(children).replace(/\n$/, '')}
+        language={match[1]}
+        PreTag="div"
+        {...props}
+      />
+    ) : (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    )
+  }
 
   return (
     <>
@@ -43,15 +63,21 @@ const NoteEditor = () => {
         </div>
         <div className={styles.preview}>
           <h3>Preview</h3>
-          <ReactMarkdown className={styles.markdownPreview} children={source} remarkPlugins={[remarkGfm]} />
+          <ReactMarkdown
+            className={styles.markdownPreview}
+            children={source}
+            components={{ code: RenderCodeBlock }}
+            remarkPlugins={[remarkGfm]}
+          />
         </div>
       </div>
-      {header != null ? (
+      {header ? (
         <div className={styles.saveBox}>
           <Button
             appearance="primary"
-            onClick={() => {
-              createArticle({ variables: { title: header, markdown_detail: source } })
+            onClick={async () => {
+              await createArticle({ variables: { title: header, markdown_detail: source, author_id: user.userId } })
+              navigate('/')
             }}
           >
             Save

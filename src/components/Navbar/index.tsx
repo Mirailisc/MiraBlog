@@ -4,15 +4,15 @@ import Logo from '../../images/logo.svg'
 import { Button, Avatar } from '@fluentui/react-components'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     logout()
-    navigate(0);
+    navigate(0)
   }
 
   return (
@@ -22,17 +22,20 @@ const Navbar = () => {
           <img src={Logo} alt="logo" />| Note
         </Link>
         <div className={styles.navLinks}>
-          <Link to="/editor" style={{ textDecoration: 'none' }}>
-            <Button>Create</Button>
-          </Link>
           {user ? (
-            <Button onClick={handleLogout}>Sign out</Button>
+            <>
+              <Link to="/editor" style={{ textDecoration: 'none' }}>
+                <Button>Create</Button>
+              </Link>
+              <Button onClick={handleLogout}>Sign out</Button>
+            </>
           ) : (
-            <Link to="/sign-in" style={{ textDecoration: 'none' }}>
-              <Button>Sign in</Button>
-            </Link>
+            <>
+              <Link to="/sign-in" style={{ textDecoration: 'none' }}>
+                <Button>Sign in</Button>
+              </Link>
+            </>
           )}
-          <Avatar name="Phubordin Poolnai" />
         </div>
       </nav>
     </>

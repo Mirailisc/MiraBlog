@@ -9,7 +9,9 @@ import { AuthContext } from '../../context/authContext'
 const Articles = () => {
   const [articles, setArticles] = useState<any>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const { loading, error, data } = useQuery(GET_ARTICLES)
+  const { loading, error, data } = useQuery(GET_ARTICLES, {
+    pollInterval: 1000,
+  })
 
   const { user }: any = useContext(AuthContext)
 
@@ -38,7 +40,7 @@ const Articles = () => {
               <div className={styles.listArticle} key={index++}>
                 <div className={styles.article}>
                   <h4>{items.title}</h4>
-                  <p>{items.author_id}</p>
+                  <p>{items.author?.first_name + ' ' + items.author?.last_name}</p>
                   <p>{items.markdown_detail}</p>
                 </div>
                 <hr />
