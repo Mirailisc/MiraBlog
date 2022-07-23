@@ -4,15 +4,19 @@ const GET_ARTICLES = gql`
   query getArticles {
     articles {
       title
-      author_id
+      author {
+        first_name
+        last_name
+      }
       markdown_detail
+      createdAt
     }
   }
 `
 
 const CREATE_ARTICLE = gql`
-  mutation createArticle($title: String, $markdown_detail: String!) {
-    createArticle(title: $title, markdown_detail: $markdown_detail) {
+  mutation createArticle($title: String, $markdown_detail: String!, $author_id: String) {
+    createArticle(title: $title, markdown_detail: $markdown_detail, author_id: $author_id) {
       title
       markdown_detail
     }
