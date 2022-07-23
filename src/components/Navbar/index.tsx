@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styles from './index.module.scss'
 import Logo from '../../images/logo.svg'
-import { Button, Avatar } from '@fluentui/react-components'
+import { Button } from '@fluentui/react-components'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
 import { useNavigate } from 'react-router-dom'
